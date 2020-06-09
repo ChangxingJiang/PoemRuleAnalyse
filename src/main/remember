@@ -1,0 +1,67 @@
+/********英文简写列表********
+IFS_=interface 接口
+STP_=start-up 启动
+EXC_=exception 异常
+cat=category 类型
+rhn=rhyme number 韵部编号
+db=database 数据库
+dup=duplicate 重复检验
+****************************/
+
+/*///////////////平水韵-数字对应表///////////////
+【上平部】000=一东  001=二冬  002=三江  003=四支  004=五微  005=六鱼  006=七虞
+007=八齐  008=九佳	009=十灰  010=十一真011=十二文012=十三元013=十四寒014=十五删
+【下平部】015=一先	016=二萧  017=三肴	018=四豪  019=五歌  020=六麻  021=七阳
+022=八庚  023=九青	024=十蒸  026=十一尤026=十二侵027=十三覃028=十四盐029=十五咸
+【上声部】030=一董	031=二肿  032=三讲  033=四纸  034=五尾	035=六语  036=七麌
+037=八荠  038=九蟹	039=十贿  040=十一轸041=十二吻042=十三阮043=十四旱044=十五潸
+045=十六铣046=十七筱047=十八巧048=十九皓049=二十哿050=二一马051=二二养052=二三梗
+053=二四迥054=二五有055=二六寝056=二七感057=二八俭058=二九豏
+【去声部】059=一送	060=二宋  061=三绛	062=四寘  063=五未	064=六御  065=七遇
+066=八霁  067=九泰	068=十卦  069=十一队070=十二震071=十三问072=十四愿073=十五翰
+074=十六谏075=十七霰076=十八啸077=十九效078=二十号079=二一个080=二二祃081=二三漾
+082=二四敬083=二五径084=二六宥085=二七沁086=二八勘087=二九艳088=三十陷
+【入声部】089=一屋	090=二沃  091=三觉	092=四质  093=五物	094=六月  095=七曷
+096=八黠  097=九屑	098=十药  099=十一陌100=十二锡101=十三职102=十四缉103=十五合
+104=十六叶105=十七洽	 
+///////////////////////////////////////////////*/
+
+		STPLoadDriver();//【开始】加载MySQL驱动
+
+		STPOpenConnection("STUDENTS");//【开始】建立连接
+		CreateDatabase("STUDENTS");//【开始】创建数据库
+		DeleteTable("REGISTRATION");//【SQL】删除表格
+		
+		SetTable("REGISTRATION");
+		Item("id","INTEGER",false,true);
+		Item("first","VARCHAR(255)",true,false);
+		Item("last","VARCHAR(255)",true,false);
+		Item("age","INTEGER",true,false);
+		CreateTable();                  //【SQL】创建表格            
+		
+		//InsertOneRecord("Registration","100, 'Zara', 'Ali', 18");//【SQL】插入记录
+		
+		String[] value=new String[100];
+		value[0]="100, 'Zara', 'Ali', 18";
+		value[1]="101, 'Mahnaz', 'Fatma', 25";
+		value[2]="102, 'Zaid', 'Khan', 30";
+		value[3]="103, 'Sumit', 'Mittal', 28";
+		InsertManyRecord("Registration",value);	         //【SQL】插入多条记录(输入操作表格名，插入记录内容)	
+		
+		String[] item=new String[10];
+		item[0]="Iid";                //int类型
+		item[1]="Sfirst";  //int类型
+		item[2]="Slast";// String类型
+		item[3]="Iage";//String类型
+		String SQL=ShowByItem("Registration",item);
+		SQLDo(SQL,item);
+		
+		//SearchRecordByInt("Registration",item,"id>=101");
+		//SearchRecordByInt("Registration",item,"first LIKE '%za%'");
+		//OrderRecord("Registration",item,"first","DESC");
+		//ChangeRecord("Registration","age=30","id in (100, 101)");
+		//DeleteRecord("Registration","id=101");//【SQL】删除记录
+		//DeleteDatabase("STUDENTS");//【SQL】删除数据库
+		STPCloseConnection();//【关闭】关闭连接
+		
+		
